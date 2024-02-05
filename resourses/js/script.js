@@ -7,6 +7,9 @@ const playBtn = document.querySelector(".player__button.toggle");
 const volSlider = document.querySelector(".player__slider[name='volume']");
 const videoSpeed = document.querySelector(".player__slider[name='playbackRate']");
 const playBackSkips = document.querySelectorAll(".player__button[data-skip]");
+const fullScreenBtn = document.querySelector(".full-sreen");
+
+let ProgressFlag = false;
 
 function videoPlay(){ 
     if(videoEl.paused){ 
@@ -37,16 +40,16 @@ function updatePrgressBar(e){
     videoEl.currentTime = ((progressPer / 100) * videoEl.duration);
 }
 
-
-
-
 playBtn.addEventListener('click', videoPlay);
 videoEl.addEventListener('click', videoPlay);
 volSlider.addEventListener('input', videoVolumeChange);
 videoSpeed.addEventListener('input', videoSpeedChange);
 videoEl.addEventListener('timeupdate',progressBarChnage);
-progressBarParent.addEventListener('click',updatePrgressBar)
-
+progressBarParent.addEventListener('click',updatePrgressBar);
+progressBarParent.addEventListener('mousedown',() => {ProgressFlag = true;});
+document.addEventListener('mouseup',() => {ProgressFlag = false;});
+progressBarParent.addEventListener('mousemove',(e) => ProgressFlag && updatePrgressBar(e));
+fullScreenBtn.addEventListener('click',() => videoEl.requestFullscreen());
 
 for(const skip of playBackSkips){
     skip.addEventListener('click', (e) => { 
