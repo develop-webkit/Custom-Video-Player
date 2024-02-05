@@ -6,8 +6,8 @@ const playBackSkips = document.querySelectorAll(".player__button[data-skip]");
 
 //console.log(playBackSkip[0].getAttribute('data-skip'))
 
-function videoPlay(){
-    if(videoEl.paused){
+function videoPlay(){ 
+    if(videoEl.paused){ 
         videoEl.play();
         playBtn.innerHTML = "‖‖";
     }else{
